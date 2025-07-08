@@ -1,0 +1,82 @@
+.admin-register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full screen height */
+  width: 100vw; /* Full screen width */
+  text-align: center;
+  background: #ECE5D8; /* Soft white gradient */
+  color: #333;
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+.admin-register-box {
+  width: 100%;
+  max-width: 500px;
+  padding: 40px;
+  background: #82a8b8; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  text-align: center;
+}
+
+h2 {
+  color: #444;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #444;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  background: #666;
+}
+
+.switch-auth {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.switch-auth a {
+  color: #444;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.switch-auth a:hover {
+  text-decoration: underline;
+}

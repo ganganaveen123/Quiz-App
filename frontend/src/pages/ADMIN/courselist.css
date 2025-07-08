@@ -1,0 +1,233 @@
+/* Global Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #ffe6f0, #ffffff);
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box; /* Ensures consistent box-sizing */
+}
+
+/* Centered Main Container */
+.main-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 100px 20px; /* Balanced padding on both sides */
+  box-sizing: border-box;
+}
+
+/* Main White Card */
+.main-container > div {
+  background: #ffffff;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  border-radius: 16px;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Course Grid */
+.course-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Each Course Box */
+.course-box {
+  background: #e7f5ff;
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #cce0ff;
+  text-align: center;
+  transition: transform 0.3s, background-color 0.3s;
+  box-sizing: border-box;
+}
+
+.course-box:hover {
+  transform: translateY(-5px);
+  background-color: #d0ebff;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Styled Buttons */
+.button-group button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-group button:hover {
+  background-color: #218838;
+}
+
+/* Add Course Form */
+.add-course-form {
+  margin-top: 40px;
+  max-width: 600px;
+  width: 100%;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.add-course-form h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.add-course-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.add-course-form button {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-course-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .course-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .add-course-form {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .course-list {
+    grid-template-columns: 1fr;
+  }
+
+  .add-course-form {
+    padding: 10px;
+  }
+}
+
+/* Specific Styles for Editing Course */
+.edit-course {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 350px;
+  margin: 20px auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.edit-course input {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+}
+
+.edit-course-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.edit-course button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+/* Ensure buttons inside .edit-course are styled */
+.edit-course button:nth-of-type(1) {
+  background-color: #28a745; /* Green for update */
+  color: white;
+}
+
+.edit-course button:nth-of-type(2) {
+  background-color: #dc3545; /* Red for cancel */
+  color: white;
+}
+
+/* Add a hover effect to make the buttons more interactive */
+.edit-course button:nth-of-type(1):hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+.edit-course button:nth-of-type(2):hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+
+.edit-course button:hover {
+  opacity: 0.8;
+}

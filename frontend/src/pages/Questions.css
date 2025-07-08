@@ -1,0 +1,105 @@
+/* Questions.css */
+
+.questions-container {
+    width: 100vw;
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: linear-gradient(to right, #74ebd5, #9face6);
+    font-family: "Segoe UI", sans-serif;
+  }
+  
+  .questions-box {
+    max-width: 900px;
+    margin: auto;
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .questions-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .question-block {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .question-text {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #444;
+  }
+  
+  .option-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .option-radio {
+    display: none;
+  }
+  
+  .custom-circle {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #666;
+    margin-right: 12px;
+    background-color: transparent;
+    transition: 0.2s ease;
+  }
+  
+  .custom-circle.selected {
+    background-color: #5b6dfd;
+  }
+  
+  .submit-button {
+    padding: 12px 25px;
+    font-size: 16px;
+    background-color: lightgreen;
+    color: blue;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: lightgreen;
+  }
+
+  .score-display {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #1e963f;
+    text-shadow: 1px 1px 2px #ccc;
+  }
+  
+  .sticky-timer-card {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background-color: #fff5f5;
+    border: 2px solid #ff6b6b;
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    color: #c0392b;
+    font-weight: bold;
+    z-index: 1000;
+  }
+  

@@ -1,0 +1,66 @@
+/* html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+} */
+
+/* Outer Container */
+.OUTER_CONTAINER {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  padding: 100px 20px; /* Add top/bottom space */
+  background-color: #f0f2f5;
+  min-height: 100vh; /* Full page */
+  box-sizing: border-box;
+  overflow-y: auto; /* Scroll vertically if content overflows */
+}
+
+/* Inner Container */
+.INNER_CONTAINER {
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 1000px;
+}
+
+/* Table */
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.dashboard-table thead {
+  background-color: blue;
+  color: white;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  padding: 14px 20px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.dashboard-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Delete Button */
+.dashboard-table button {
+  background-color: #ffcc00;
+  color: #003366;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.dashboard-table button:hover {
+  background-color: #ffe680;
+  transform: scale(1.05);
+}

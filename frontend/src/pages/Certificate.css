@@ -1,0 +1,114 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  height: auto;
+}
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #D1E0D7;
+  flex-direction: column; /* Optional: allows vertical stacking */
+}
+
+
+.certificate-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-align: center;
+  
+    background-color: #ffffff; /* white box */
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;
+  }
+  
+  .certificate-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .certificate-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 25px;
+  }
+  
+  .course-dropdown {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .course-dropdown:focus {
+    border-color: #4caf50;
+    outline: none;
+  }
+  
+  .download-btn {
+    padding: 12px 24px;
+    background-color: white;
+    color: blue;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .download-btn:hover {
+    background-color: #388e3c;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .certificate-container {
+      padding: 20px;
+    }
+  
+    .certificate-title {
+      font-size: 20px;
+    }
+  
+    .download-btn {
+      width: 100%;
+    }
+  }
+  
+  .success-message {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #d4edda;
+    color: #155724;
+    font-weight: 500;
+    text-align: center;
+  }
+  
+  .error-message {
+    margin-top: 20px;
+    color: #b00020;
+    font-weight: 500;
+    background-color: #ffe6e6;
+    padding: 10px 15px;
+    border-radius: 8px;
+    max-width: 500px;
+  }
+  
+  

@@ -1,0 +1,192 @@
+/* Container for the whole page */
+.course-topics-container {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+  }
+  
+  /* Box containing all topics */
+  .course-topics-box {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title of the topics page */
+  .course-topics-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* List container */
+  .course-topics-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the topic items */
+  }
+  
+  /* Each topic item */
+  .course-topic-item {
+    background: #ffffff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 80%; /* Decrease width */
+    max-width: 500px; /* Set a max width */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content */
+  }
+  
+  /* Topic name and edit button container */
+  .topic-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    min-height: 50px; /* or whatever height you want */
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .topic-name span {
+    flex: 1;
+    text-align: left;
+  }
+  
+  
+  
+  /* Edit Topic button */
+  .edit-topic-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .edit-topic-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Editing input field */
+  .edit-topic-container input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  /* Save/Cancel button container */
+  .edit-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Save and Cancel buttons */
+  .save-button,
+  .cancel-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .save-button {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .save-button:hover {
+    background-color: #218838;
+  }
+  
+  .cancel-button {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .cancel-button:hover {
+    background-color: #c82333;
+  }
+  
+  /* Form for adding a new topic */
+  .add-topic-form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Input for adding new topic */
+  .add-topic-form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  /* Add topic button */
+  .add-button {
+    padding: 15px 30px; /* Match Edit button padding */
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    font-size: 14px; /* Match Edit button font size */
+    border-radius: 6px;
+    cursor: pointer;
+    width: auto; /* This will fix it from stretching full width */
+     align-self: center;
+    ; /* Button aligns to left like Edit button */
+  }
+  
+  .add-button:hover {
+    background-color: #138496;
+  }
+  
+  
+  /* Error message styling */
+  .error-message {
+    color: red;
+    font-size: 14px;
+  }
+  
+  /* Go Back button container */
+  .back-button-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Go Back button */
+  .back-button {
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .back-button:hover {
+    background-color: #5a6268;
+  }
+  
+  /* Loading text styling */
+  .loading-text {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+  }
+  

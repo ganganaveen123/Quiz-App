@@ -1,0 +1,105 @@
+*{
+  margin:0;
+  padding:0;
+}
+
+.top-navbar * {
+  border: none !important;
+}
+
+
+.top-navbar {
+  width: 100%;
+  height: 60px;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+  margin-bottom: 400px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  margin-right: 30px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-links li a:hover {
+  color: #18bc9c;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.user-link:hover {
+  color: #a9bc18;
+}
+.course-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.course-link:hover {
+  color: #a9bc18;
+}
+
+.signout-btn {
+  background-color:white;
+  border: none;
+  color: blue;
+  padding: 10px 50px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.signout-btn:hover {
+  background-color: green;
+}
+.navbar-left .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.navbar-left .logo:hover {
+  opacity: 0.8;
+}
