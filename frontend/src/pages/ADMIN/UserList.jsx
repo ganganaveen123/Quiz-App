@@ -10,7 +10,18 @@ const UserList = () => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      
       console.log('Token:', token); // Debug log
+      console.log('Current user:', user); // Debug log
+      console.log('User role:', user.role); // Debug log
+      
+      // Check if user is admin
+      if (!user.role || user.role !== 'admin') {
+        setError('Access denied. Only admin users can view this page.');
+        setLoading(false);
+        return;
+      }
       
       const response = await fetch('https://quiz-app-dq18.onrender.com/api/admin/users', {
         headers: {
@@ -99,6 +110,20 @@ const UserList = () => {
     <div className="OUTER_CONTAINER">
       <Sidebar />
       <div className="INNER_CONTAINER">
+        {/* Debug Information */}
+        <div style={{ 
+          background: '#f0f0f0', 
+          padding: '10px', 
+          marginBottom: '20px', 
+          borderRadius: '5px',
+          fontSize: '12px'
+        }}>
+          <strong>Debug Info:</strong><br/>
+          Token: {localStorage.getItem('token') ? 'Present' : 'Missing'}<br/>
+          User: {localStorage.getItem('user') ? 'Present' : 'Missing'}<br/>
+          User Role: {JSON.parse(localStorage.getItem('user') || '{}').role || 'None'}<br/>
+        </div>
+
         <h2 style={{ textAlign: "center" }}>User List</h2>
 
         {users.length === 0 ? (
