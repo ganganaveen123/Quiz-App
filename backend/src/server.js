@@ -17,7 +17,7 @@ app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/result", require("./routes/resultRoutes"));
 app.use("/api/leaderboard",require("./routes/leaderboard"));
 app.use("/api",require("./routes/certificateRoutes"));
-app.use("/api",require("./routes/adminRoutes"));
+app.use("/api/admin",require("./routes/adminRoutes"));
 app.use("/api", require("./routes/analyticsRoutes"));
 
 // Start Server
