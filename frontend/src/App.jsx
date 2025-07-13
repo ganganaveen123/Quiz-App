@@ -81,11 +81,6 @@ function App() {
             <AdminDashboard />
           </ProtectedRoute>
         }/>
-        <Route path="/UserList" element={
-          <ProtectedRoute allowedRoles={['admin']}>
-            <UserList/>
-          </ProtectedRoute>
-        } />
         <Route path="/CourseList" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <CourseList/>
