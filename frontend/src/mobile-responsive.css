@@ -1,0 +1,526 @@
+/* Mobile Responsive CSS - Fixes for mobile sync issues */
+
+/* Global Mobile Fixes */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Mobile Sidebar Fixes */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    background-color: #1e2a38;
+  }
+  
+  .sidebar.open {
+    left: 0;
+  }
+  
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 20px 15px !important;
+  }
+  
+  /* Mobile Menu Toggle */
+  .mobile-menu-toggle {
+    display: block;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: #1e2a38;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .mobile-menu-toggle:focus {
+    outline: none;
+  }
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  .nav-list {
+    padding: 20px;
+    margin-top: 60px;
+  }
+  
+  .nav-item {
+    margin: 15px 0;
+  }
+  
+  .nav-link {
+    font-size: 18px;
+    padding: 15px 0;
+    display: block;
+  }
+  
+  .logout-button {
+    margin-top: 30px;
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+  }
+}
+
+/* Mobile Home Page */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 20px;
+  }
+  
+  .glass-card {
+    padding: 30px 20px;
+    margin: 20px;
+    width: 95%;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  p {
+    font-size: 1rem;
+  }
+  
+  .buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .home-btn {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+  }
+}
+
+/* Mobile Login/Registration Forms */
+@media (max-width: 768px) {
+  .user-login-container,
+  .admin-login-container,
+  .user-registration-container,
+  .admin-registration-container {
+    padding: 20px;
+    min-height: 100vh;
+  }
+  
+  .user-login-box,
+  .admin-login-box,
+  .user-registration-box,
+  .admin-registration-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px 20px;
+    margin: 20px auto;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+  }
+}
+
+/* Mobile Courses Page */
+@media (max-width: 768px) {
+  .courses-grid {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+    padding: 10px !important;
+  }
+  
+  .course-box {
+    max-width: 100% !important;
+    height: 120px !important;
+    padding: 20px 15px !important;
+  }
+  
+  .course-box h2 {
+    font-size: 18px !important;
+  }
+}
+
+/* Mobile Quiz Questions */
+@media (max-width: 768px) {
+  .questions-container {
+    padding: 20px 10px !important;
+  }
+  
+  .questions-box {
+    padding: 20px 15px !important;
+    margin: 10px !important;
+  }
+  
+  .question-text {
+    font-size: 16px !important;
+  }
+  
+  .option-label {
+    font-size: 14px !important;
+    padding: 10px 0 !important;
+  }
+  
+  .sticky-timer-card {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 100 !important;
+    padding: 10px !important;
+    font-size: 14px !important;
+  }
+  
+  .submit-button {
+    width: 100% !important;
+    padding: 15px !important;
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile Certificate Page */
+@media (max-width: 768px) {
+  .certificate-container {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    margin: 20px auto !important;
+    width: 95% !important;
+    padding: 20px !important;
+  }
+  
+  .certificate-title {
+    font-size: 20px !important;
+  }
+  
+  .certificate-subtitle {
+    font-size: 14px !important;
+  }
+  
+  .course-dropdown {
+    width: 100% !important;
+    padding: 15px !important;
+    font-size: 16px !important;
+  }
+  
+  .download-btn {
+    width: 100% !important;
+    padding: 15px !important;
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile Leaderboard */
+@media (max-width: 768px) {
+  .leaderboard-table {
+    font-size: 12px !important;
+  }
+  
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 8px 5px !important;
+  }
+  
+  .tablecontainer {
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+  
+  .course-select {
+    width: 100% !important;
+    padding: 12px !important;
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile Analytics */
+@media (max-width: 768px) {
+  .analytics-container {
+    width: 100% !important;
+    padding: 20px 10px !important;
+    margin: 10px !important;
+  }
+  
+  .analytics-title {
+    font-size: 1.5rem !important;
+  }
+  
+  .chart-wrapper {
+    height: 300px !important;
+  }
+}
+
+/* Mobile Admin Pages */
+@media (max-width: 768px) {
+  .course-list {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+  
+  .course-box {
+    padding: 20px 15px !important;
+  }
+  
+  .button-group {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  
+  .button-group button {
+    width: 100% !important;
+    padding: 12px !important;
+    font-size: 14px !important;
+  }
+  
+  .add-course-form {
+    padding: 20px 15px !important;
+  }
+  
+  .add-course-form input {
+    padding: 15px !important;
+    font-size: 16px !important;
+  }
+  
+  .add-course-form button {
+    padding: 15px !important;
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile Result Page */
+@media (max-width: 768px) {
+  .result-container {
+    padding: 20px 10px !important;
+  }
+  
+  .result-box {
+    padding: 20px 15px !important;
+    margin: 10px !important;
+  }
+  
+  .result-title {
+    font-size: 24px !important;
+  }
+  
+  .result-score {
+    font-size: 20px !important;
+  }
+  
+  .review-question {
+    margin-bottom: 20px !important;
+  }
+  
+  .review-question-text {
+    font-size: 14px !important;
+  }
+  
+  .review-answer {
+    font-size: 13px !important;
+  }
+  
+  .back-button {
+    width: 100% !important;
+    padding: 15px !important;
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile User List */
+@media (max-width: 768px) {
+  .OUTER_CONTAINER {
+    padding: 20px 10px !important;
+  }
+  
+  .INNER_CONTAINER {
+    padding: 20px 15px !important;
+  }
+  
+  .dashboard-table {
+    font-size: 12px !important;
+  }
+  
+  .dashboard-table th,
+  .dashboard-table td {
+    padding: 8px 5px !important;
+  }
+  
+  .dashboard-table button {
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* Mobile Topic List */
+@media (max-width: 768px) {
+  .course-topics-container {
+    padding: 20px 10px !important;
+  }
+  
+  .course-topics-box {
+    padding: 20px 15px !important;
+  }
+  
+  .course-topics-title {
+    font-size: 24px !important;
+  }
+  
+  .course-topic-item {
+    padding: 15px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .topic-name {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  
+  .edit-topic-button {
+    width: 100% !important;
+    padding: 10px !important;
+  }
+  
+  .add-topic-form {
+    margin-top: 20px !important;
+  }
+  
+  .add-topic-form input {
+    width: 100% !important;
+    padding: 12px !important;
+    font-size: 16px !important;
+  }
+  
+  .add-button {
+    width: 100% !important;
+    padding: 12px !important;
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile Question List */
+@media (max-width: 768px) {
+  .question-list-container {
+    flex-direction: column !important;
+    padding: 20px 10px !important;
+  }
+  
+  .question-list-content,
+  .question-list-form {
+    width: 100% !important;
+    padding: 15px !important;
+  }
+  
+  .dropdown-select {
+    width: 100% !important;
+    padding: 12px !important;
+    font-size: 16px !important;
+  }
+  
+  .question-item {
+    padding: 15px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .question-item p {
+    font-size: 14px !important;
+  }
+  
+  .option-list {
+    font-size: 13px !important;
+  }
+  
+  .edit-button {
+    width: 100% !important;
+    padding: 10px !important;
+    margin-top: 10px !important;
+  }
+  
+  .add-question-form,
+  .edit-question-form {
+    padding: 20px 15px !important;
+  }
+  
+  .add-question-form input,
+  .edit-question-form input {
+    width: 100% !important;
+    padding: 12px !important;
+    font-size: 16px !important;
+  }
+  
+  .submit-button,
+  .cancel-button {
+    width: 100% !important;
+    padding: 12px !important;
+    font-size: 16px !important;
+    margin-top: 10px !important;
+  }
+}
+
+/* Mobile Menu Toggle Component */
+.mobile-menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (max-width: 768px) {
+  button, 
+  .nav-link,
+  .course-box,
+  .course-topic-item {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Prevent zoom on input focus */
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+} 

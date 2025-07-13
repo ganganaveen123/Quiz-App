@@ -19,6 +19,9 @@ import LeaderBoard from "./pages/LeaderBoard";
 import Certificate from "./pages/Certificate";
 import PerformanceAnalytics from "./pages/PerformanceAnalytics";
 
+// Import mobile responsive CSS
+import "./mobile-responsive.css";
+
 
 function App() {
   return (

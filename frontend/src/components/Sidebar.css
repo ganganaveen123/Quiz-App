@@ -103,3 +103,78 @@
 .navbar-left .logo:hover {
   opacity: 0.8;
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .top-navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  .top-navbar.mobile-open {
+    left: 0;
+  }
+
+  .navbar-left {
+    margin-bottom: 15px;
+  }
+
+  .navbar-right {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .user-link,
+  .course-link {
+    display: block;
+    padding: 12px 0;
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid #333;
+  }
+
+  .signout-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+  }
+
+  .logo {
+    font-size: 20px;
+    margin-right: 0;
+  }
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: black;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  .mobile-menu-toggle:focus {
+    outline: none;
+  }
+}
