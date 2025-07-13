@@ -10,6 +10,8 @@ const UserList = () => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
+      console.log('Token:', token); // Debug log
+      
       const response = await fetch('https://quiz-app-dq18.onrender.com/api/admin/users', {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -17,15 +19,21 @@ const UserList = () => {
         }
       });
       
+      console.log('Response status:', response.status); // Debug log
+      console.log('Response headers:', response.headers); // Debug log
+      
       if (!response.ok) {
-        throw new Error('Failed to fetch users');
+        const errorText = await response.text();
+        console.log('Error response:', errorText); // Debug log
+        throw new Error(`Failed to fetch users: ${response.status} ${errorText}`);
       }
       
       const data = await response.json();
+      console.log('Response data:', data); // Debug log
       setUsers(data.users);
     } catch (error) {
       console.error('Error fetching users:', error);
-      setError('Failed to load users. Please try again.');
+      setError(`Failed to load users: ${error.message}`);
     } finally {
       setLoading(false);
     }
