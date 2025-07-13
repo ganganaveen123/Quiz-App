@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = "http://localhost:5000/api/auth"; // Backend URL
+const API_BASE_URL = "https://quiz-app-dq18.onrender.com/api/auth"; // Backend URL
 
 // User Registration
 export const registerUser = async (userData) => {

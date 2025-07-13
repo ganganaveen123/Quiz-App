@@ -36,7 +36,7 @@ const Questions = () => {
     const fetchQuestions = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/courses/questions/${courseName}/${topicId}`
+          `https://quiz-app-dq18.onrender.com/api/courses/questions/${courseName}/${topicId}`
         );
         if (!response.ok) throw new Error("Failed to fetch questions");
 
@@ -85,7 +85,7 @@ const Questions = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:5000/api/result/submit", {
+      const response = await fetch("https://quiz-app-dq18.onrender.com/api/result/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

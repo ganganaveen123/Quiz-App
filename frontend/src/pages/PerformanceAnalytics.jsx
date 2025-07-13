@@ -23,7 +23,7 @@ const PerformanceAnalytics = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:5000/api/user/${userId}/analytics`, {
+      const response = await axios.get(`https://quiz-app-dq18.onrender.com/api/user/${userId}/analytics`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

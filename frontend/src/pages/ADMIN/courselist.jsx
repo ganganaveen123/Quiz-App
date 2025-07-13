@@ -18,7 +18,7 @@ const CourseList = () => {
 
   const fetchCourses = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/courses");
+      const res = await axios.get("https://quiz-app-dq18.onrender.com/api/courses");
       setCourses(res.data);
     } catch (error) {
       console.error("Error fetching courses", error);
@@ -33,7 +33,7 @@ const CourseList = () => {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:5000/api/courses/addcourse", {
+      const res = await axios.post("https://quiz-app-dq18.onrender.com/api/courses/addcourse", {
         name: newCourseName,
       });
 

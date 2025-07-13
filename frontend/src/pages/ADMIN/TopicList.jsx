@@ -19,7 +19,7 @@ const TopicList = () => {
     const fetchTopics = async () => {
       try {
         const formattedCourseName = decodeURIComponent(courseName);
-        const response = await fetch(`http://localhost:5000/api/courses/topics/${formattedCourseName}`);
+        const response = await fetch(`https://quiz-app-dq18.onrender.com/api/courses/topics/${formattedCourseName}`);
         if (!response.ok) throw new Error("Failed to fetch topics");
         const data = await response.json();
         setTopics(data);
@@ -39,7 +39,7 @@ const TopicList = () => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:5000/api/courses/updatetopic/${courseName}/${topicId}`, {
+      const response = await fetch(`https://quiz-app-dq18.onrender.com/api/courses/updatetopic/${courseName}/${topicId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: editingTopicName }),
@@ -69,14 +69,14 @@ const TopicList = () => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:5000/api/courses/addcourse/${courseName}/topics`, {
+      const response = await fetch(`https://quiz-app-dq18.onrender.com/api/courses/addcourse/${courseName}/topics`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: newTopicName }),
       });
       if (!response.ok) throw new Error("Failed to add topic");
 
-      const updatedResponse = await fetch(`http://localhost:5000/api/courses/topics/${courseName}`);
+      const updatedResponse = await fetch(`https://quiz-app-dq18.onrender.com/api/courses/topics/${courseName}`);
       const updatedData = await updatedResponse.json();
       setTopics(updatedData);
       setNewTopicName("");

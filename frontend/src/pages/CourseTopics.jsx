@@ -12,7 +12,7 @@ const CourseTopics = () => {
     const fetchTopics = async () => {
       try {
         const formattedCourseName = decodeURIComponent(courseName);
-        const response = await fetch(`http://localhost:5000/api/courses/topics/${formattedCourseName}`);
+        const response = await fetch(`https://quiz-app-dq18.onrender.com/api/courses/topics/${formattedCourseName}`);
         if (!response.ok) throw new Error("Failed to fetch topics");
 
         const data = await response.json();

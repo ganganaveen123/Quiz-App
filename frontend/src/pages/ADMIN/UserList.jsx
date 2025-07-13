@@ -7,7 +7,7 @@ const UserList = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/users');
+      const response = await fetch('https://quiz-app-dq18.onrender.com/api/users');
       const data = await response.json();
       setUsers(data.users);
     } catch (error) {
@@ -20,7 +20,7 @@ const UserList = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${id}`, {
+      const response = await fetch(`https://quiz-app-dq18.onrender.com/api/users/${id}`, {
         method: 'DELETE',
       });
 

@@ -22,7 +22,7 @@ const LeaderboardPage = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/courses/");
+      const response = await axios.get("https://quiz-app-dq18.onrender.com/api/courses/");
       setCourses(response.data);
     } catch (error) {
       console.error("Error fetching courses:", error);
@@ -33,7 +33,7 @@ const LeaderboardPage = () => {
 
   const fetchLeaderboard = async (courseName) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/leaderboard/${courseName}`);
+      const response = await axios.get(`https://quiz-app-dq18.onrender.com/api/leaderboard/${courseName}`);
       setLeaderboard(response.data);
     } catch (error) {
       console.error("Error fetching leaderboard:", error);

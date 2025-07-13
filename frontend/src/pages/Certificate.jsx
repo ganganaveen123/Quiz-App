@@ -22,7 +22,7 @@ const Certificate = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/courses/");
+      const response = await axios.get("https://quiz-app-dq18.onrender.com/api/courses/");
       console.log("Fetched Courses:", response.data);
 
       // Expecting course objects like { name: "Python" }
@@ -53,7 +53,7 @@ const Certificate = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/certificate/${username}/${encodeURIComponent(selectedCourse)}`,
+        `https://quiz-app-dq18.onrender.com/api/certificate/${username}/${encodeURIComponent(selectedCourse)}`,
         { responseType: "blob" }
       );
 
