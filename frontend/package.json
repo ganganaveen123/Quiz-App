@@ -14,7 +14,7 @@
     "dev": "vite",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build": "babel src --out-dir dist"
+    "build": "vite build"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
