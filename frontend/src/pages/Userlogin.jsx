@@ -29,7 +29,13 @@ const UserLogin = () => {
                localStorage.setItem("username", user.name);
                
               alert("User Logged In Successfully");
-              navigate("/UserDashboard");
+              
+              // Redirect based on user role
+              if (user.role === 'admin') {
+                navigate("/AdminDashboard");
+              } else {
+                navigate("/UserDashboard");
+              }
              } else {
                alert("Login failed: Invalid response from server");
              }

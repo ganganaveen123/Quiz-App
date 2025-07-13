@@ -14,42 +14,93 @@ import Courses from "./pages/Courses";
 import CourseTopics from "./pages/CourseTopics";
 import Questions from "./pages/Questions";
 import Result from "./pages/Result";
-
 import LeaderBoard from "./pages/LeaderBoard";
 import Certificate from "./pages/Certificate";
 import PerformanceAnalytics from "./pages/PerformanceAnalytics";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Import mobile responsive CSS
 import "./mobile-responsive.css";
-
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/Userlogin" element={<Userlogin />} />
         <Route path="/Adminlogin" element={<Adminlogin />} />
         <Route path="/UserRegistration" element={<UserRegistration />} />
         <Route path="/AdminRegistration" element={<AdminRegistration />} />
-        <Route path="/UserDashboard" element={<UserDashboard />}/>
-        <Route path="/AdminDashboard" element={<AdminDashboard />}/>
-        <Route path="/courses" element={<Courses />}/>
-        <Route path ="/courses/:courseName" element={<CourseTopics/>}/>
-        <Route path="/courses/:courseName/topics/:topicId" element={<Questions />} />
-        <Route path="/result" element={<Result />} />
-        <Route path="/analytics" element={<PerformanceAnalytics />} />
 
+        {/* User-Only Routes */}
+        <Route path="/UserDashboard" element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <UserDashboard />
+          </ProtectedRoute>
+        }/>
+        <Route path="/courses" element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <Courses />
+          </ProtectedRoute>
+        }/>
+        <Route path="/courses/:courseName" element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <CourseTopics/>
+          </ProtectedRoute>
+        }/>
+        <Route path="/courses/:courseName/topics/:topicId" element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <Questions />
+          </ProtectedRoute>
+        } />
+        <Route path="/result" element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <Result />
+          </ProtectedRoute>
+        } />
+        <Route path="/analytics" element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <PerformanceAnalytics />
+          </ProtectedRoute>
+        } />
+        <Route path="/leaderboard" element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <LeaderBoard/>
+          </ProtectedRoute>
+        }/>
+        <Route path="/certificate" element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <Certificate/>
+          </ProtectedRoute>
+        } />
 
-    
-        <Route path ="/leaderboard" element ={<LeaderBoard/>}/>
-       <Route path ="/certificate" element ={<Certificate/>} />
-       <Route path ="/UserList" element ={<UserList/>} />
-       <Route path ="/CourseList" element ={<CourseList/>} />
-       <Route path="/courses/:courseName/topics" element={<TopicList />} />
-       <Route path="/courses/:courseName/questions" element={<QuestionList />} />
- 
-
+        {/* Admin-Only Routes */}
+        <Route path="/AdminDashboard" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <AdminDashboard />
+          </ProtectedRoute>
+        }/>
+        <Route path="/UserList" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <UserList/>
+          </ProtectedRoute>
+        } />
+        <Route path="/CourseList" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <CourseList/>
+          </ProtectedRoute>
+        } />
+        <Route path="/courses/:courseName/topics" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <TopicList />
+          </ProtectedRoute>
+        } />
+        <Route path="/courses/:courseName/questions" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <QuestionList />
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
   );

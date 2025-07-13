@@ -29,7 +29,13 @@ const AdminLogin = () => {
             localStorage.setItem("username", user.name);
 
             alert("Logged In Successfully");
-            navigate("/AdminDashboard"); // You can redirect based on role if needed
+            
+            // Redirect based on user role
+            if (user.role === 'admin') {
+                navigate("/AdminDashboard");
+            } else {
+                navigate("/UserDashboard");
+            }
         } catch (error) {
             const msg = error.response?.data?.message || "Login failed";
             alert(msg);

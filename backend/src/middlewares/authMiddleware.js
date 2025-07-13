@@ -1,50 +1,65 @@
-// const jwt = require("jsonwebtoken");
-// const User = require("../models/User");
-
-// const protect = async (req, res, next) => {
-//     try {
-//         let token = req.header("Authorization");
-//         if (!token) return res.status(401).json({ message: "Access denied" });
-
-//         token = token.replace("Bearer ", "");
-//         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//         req.user = await User.findById(decoded.id).select("-password");
-
-//         next();
-//     } catch (error) {
-//         res.status(401).json({ message: "Invalid token" });
-//     }
-// };
-
-// const isAdmin = (req, res, next) => {
-//     if (req.user && req.user.role === "admin") {
-//         next();
-//     } else {
-//         res.status(403).json({ message: "Access denied, admin only" });
-//     }
-// };
-
-// module.exports = { protect, isAdmin };
-
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-// Middleware to check if the user is an admin
-const isAdmin = async (req, res, next) => {
+// Middleware to protect routes (requires authentication)
+const protect = async (req, res, next) => {
   try {
-    const token = req.header('Authorization').replace('Bearer ', '');
-    const decoded = jwt.verify(token, 'your-jwt-secret');
-    const user = await User.findById(decoded.userId);
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    
+    if (!token) {
+      return res.status(401).json({ message: 'Access denied. No token provided.' });
+    }
 
-    if (!user || !user.isAdmin) {
-      return res.status(403).json({ error: 'Access denied' });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select('-password');
+    
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid token.' });
     }
 
     req.user = user;
     next();
   } catch (error) {
-    res.status(401).json({ error: 'Not authorized' });
+    res.status(401).json({ message: 'Invalid token.' });
   }
 };
 
-module.exports = isAdmin;
+// Middleware to check if user is admin
+const isAdmin = async (req, res, next) => {
+  try {
+    // First check if user is authenticated
+    if (!req.user) {
+      return res.status(401).json({ message: 'Access denied. Please login first.' });
+    }
+
+    // Then check if user is admin
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied. Admin only.' });
+    }
+
+    next();
+  } catch (error) {
+    res.status(500).json({ message: 'Server error.' });
+  }
+};
+
+// Middleware to check if user is regular user
+const isUser = async (req, res, next) => {
+  try {
+    // First check if user is authenticated
+    if (!req.user) {
+      return res.status(401).json({ message: 'Access denied. Please login first.' });
+    }
+
+    // Then check if user is regular user
+    if (req.user.role !== 'user') {
+      return res.status(403).json({ message: 'Access denied. Users only.' });
+    }
+
+    next();
+  } catch (error) {
+    res.status(500).json({ message: 'Server error.' });
+  }
+};
+
+module.exports = { protect, isAdmin, isUser };
