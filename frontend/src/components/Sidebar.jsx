@@ -50,9 +50,9 @@ const Sidebar = () => {
         </div>
 
         <div className="navbar-right">
-          <Link to="/UserList" className="user-link" onClick={() => setIsMobileMenuOpen(false)}>
+          {/* <Link to="/UserList" className="user-link" onClick={() => setIsMobileMenuOpen(false)}>
             <FaUsers style={{ marginRight: '6px' }} /> User List
-          </Link>
+          </Link> */}
           <Link to="/CourseList" className="course-link" onClick={() => setIsMobileMenuOpen(false)}>
             <FaBookOpen style={{ marginRight: '6px' }} /> Course List
           </Link>
