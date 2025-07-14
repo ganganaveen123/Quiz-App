@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUserCog, FaUsers, FaBookOpen, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa'; // 🎯 Added Icons
 import './Sidebar.css';
+import { toast } from 'react-toastify';
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const Sidebar = () => {
 
   const handleSignOut = () => {
     // Add your logout logic here (like clearing localStorage or cookies)
-    alert("Admin signed out successfully");
+    toast.success("Admin signed out successfully");
     navigate('/adminlogin');
   };
 

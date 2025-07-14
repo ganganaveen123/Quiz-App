@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaHome, FaBook, FaTrophy, FaCertificate, FaChartBar, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
 import './Sidebar-2.css';
+import { toast } from 'react-toastify';
 
 const Sidebar2 = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    alert("User logged out successfully");
+    toast.success("User logged out successfully");
     navigate('/'); // Adjust this to your login route
   };
 

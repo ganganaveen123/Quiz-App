@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from '../../components/Sidebar';
 import { FaBook, FaPlus, FaRegFileAlt } from 'react-icons/fa'; // Removed FaEdit
 import './courselist.css';
+import { toast } from 'react-toastify';
 
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
@@ -42,15 +43,15 @@ const CourseList = () => {
       setIsSubmitted(false); // Hide any error messages
       fetchCourses(); // Refresh course list
 
-      alert("Course added successfully!");
+      toast.success("Course added successfully!");
     } catch (error) {
       setIsSubmitted(true); // Trigger message display
       if (error.response?.data?.message) {
         setAddCourseError(error.response.data.message);
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
         setAddCourseError("Something went wrong while adding the course. Please try again.");
-        alert("Something went wrong while adding the course. Please try again.");
+        toast.error("Something went wrong while adding the course. Please try again.");
       }
     }
   };

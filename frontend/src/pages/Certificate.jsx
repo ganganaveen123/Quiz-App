@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./Certificate.css";
 import Sidebar2 from "../components/Sidebar-2";
+import { toast } from 'react-toastify';
 
 const Certificate = () => {
   const [selectedCourse, setSelectedCourse] = useState("");
@@ -42,12 +43,12 @@ const Certificate = () => {
 
   const handleDownload = async () => {
     if (!username) {
-      alert("You must be logged in to download the certificate.");
+      toast.error("You must be logged in to download the certificate.");
       return;
     }
 
     if (!selectedCourse) {
-      alert("Please select a course.");
+      toast.error("Please select a course.");
       return;
     }
 
@@ -70,7 +71,7 @@ const Certificate = () => {
       window.URL.revokeObjectURL(url);
 
       setErrorMessage("");
-      setSuccessMessage(`🎉 Congratulations! Your certificate has been downloaded. You scored ${percentage} in this course.`);
+      toast.success(`🎉 Congratulations! Your certificate has been downloaded. You scored ${percentage} in this course.`);
     } catch (error) {
       setSuccessMessage("");
       if (error.response) {

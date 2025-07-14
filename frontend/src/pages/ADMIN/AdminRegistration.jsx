@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { registerUser } from "../../services/api";
 import { useNavigate, Link } from "react-router-dom";
 import "./AdminRegistration.css";
+import { toast } from 'react-toastify';
 
 const AdminRegistration = () => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
@@ -15,7 +16,7 @@ const AdminRegistration = () => {
     e.preventDefault();
     try {
       await registerUser({ ...formData, action: "register", role: "admin" });
-      alert("Admin Registered Successfully");
+      toast.success("Admin Registered Successfully");
 
       // Redirect to admin login page
       navigate("/AdminLogin");
@@ -23,7 +24,7 @@ const AdminRegistration = () => {
     } catch (error) {
       const backendMessage = error.response?.data?.message || "Registration failed";
       console.error("Registration failed:", backendMessage);
-      alert(backendMessage);
+      toast.error(backendMessage);
     }
   };
 

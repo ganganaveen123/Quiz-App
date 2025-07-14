@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { registerUser } from "../services/api";
 import { useNavigate ,Link} from "react-router-dom";
 import "./UserRegistration.css";
+import { toast } from 'react-toastify';
 
 const UserRegistration = () => {
     const [formData, setFormData] = useState({ name: "", email: "", password: "" });
@@ -18,10 +19,11 @@ const UserRegistration = () => {
             await registerUser({ ...formData, role: "user", action: "register" });
             console.log({ ...formData, role: "user", action: "register" });
 
-            alert("User Registered Successfully");
+            toast.success("User Registered Successfully");
             navigate("/Userlogin"); // Redirect after successful registration
         } catch (error) {
             console.error("Registration failed", error);
+            toast.error("Registration failed");
         }
     };
 

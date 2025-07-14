@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Questions.css";
+import { toast } from 'react-toastify';
 
 const Questions = () => {
   const { courseName, topicId } = useParams();
@@ -14,7 +15,7 @@ const Questions = () => {
 
   useEffect(() => {
     if (timeLeft <= 0) {
-      alert("Time's up! Practise Well.");
+      toast.error("Time's up! Practise Well.");
       navigate(`/courses/${courseName}`);
       return;
     }
@@ -63,7 +64,7 @@ const Questions = () => {
     e.preventDefault();
 
     if (Object.keys(answers).length !== questions.length) {
-      alert("Please answer all questions before submitting.");
+      toast.error("Please answer all questions before submitting.");
       return;
     }
 
@@ -113,7 +114,7 @@ const Questions = () => {
       });
     } catch (error) {
       console.error("Error saving quiz results:", error);
-      alert("Failed to save results.");
+      toast.error("Failed to save results.");
     }
   };
 

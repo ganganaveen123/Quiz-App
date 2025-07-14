@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./UserList.css";
 import Sidebar from '../../components/Sidebar';
+import { toast } from 'react-toastify';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -66,14 +67,14 @@ const UserList = () => {
 
       if (response.ok) {
         setUsers(prev => prev.filter(user => user._id !== id));
-        alert('User deleted successfully!');
+        toast.success('User deleted successfully!');
       } else {
         const errorData = await response.json();
-        alert(errorData.error || 'Failed to delete user');
+        toast.error(errorData.error || 'Failed to delete user');
       }
     } catch (error) {
       console.error('Error deleting user:', error);
-      alert('Error deleting user. Please try again.');
+      toast.error('Error deleting user. Please try again.');
     }
   };
 
@@ -124,37 +125,37 @@ const UserList = () => {
           User Role: {JSON.parse(localStorage.getItem('user') || '{}').role || 'None'}<br/>
         </div>
 
-        <h2 style={{ textAlign: "center" }}>User List</h2>
+      <h2 style={{ textAlign: "center" }}>User List</h2>
 
         {users.length === 0 ? (
           <p style={{ textAlign: "center", marginTop: "20px" }}>No users found.</p>
         ) : (
-          <table className="dashboard-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
+        <table className="dashboard-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
                 <th>Role</th>
-                <th>Created At</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map(user => (
-                <tr key={user._id}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
+              <th>Created At</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <tr key={user._id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
                   <td>{user.role}</td>
-                  <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                  <td>
-                    <button onClick={() => handleDelete(user._id)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                <td>
+                  <button onClick={() => handleDelete(user._id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         )}
       </div>
     </div>

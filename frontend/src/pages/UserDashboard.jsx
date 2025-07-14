@@ -5,6 +5,7 @@ import "./UserDashboard.css";
 import { FaTrophy, FaChartLine, FaQuestionCircle, FaCertificate } from "react-icons/fa";
 import quizImg from "../assets/image.png";
 import Sidebar2 from "../components/Sidebar-2";
+import { toast } from 'react-toastify';
 
 const UserDashboard = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const UserDashboard = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    alert("User signed out successfully");
+    toast.success("User signed out successfully");
     navigate("/");
   };
 

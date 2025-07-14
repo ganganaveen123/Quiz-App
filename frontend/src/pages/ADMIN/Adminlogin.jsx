@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { loginUser } from "../../services/api";
 import { useNavigate, Link } from "react-router-dom";
 import "./Adminlogin.css";
+import { toast } from 'react-toastify';
 
 const AdminLogin = () => {
     const [formData, setFormData] = useState({ email: "", password: "" });
@@ -28,7 +29,7 @@ const AdminLogin = () => {
             localStorage.setItem("userId", user.id);
             localStorage.setItem("username", user.name);
 
-            alert("Logged In Successfully");
+            toast.success("Logged In Successfully");
             
             // Redirect based on user role
             if (user.role === 'admin') {
@@ -38,7 +39,7 @@ const AdminLogin = () => {
             }
         } catch (error) {
             const msg = error.response?.data?.message || "Login failed";
-            alert(msg);
+            toast.error(msg);
         }
     };
 

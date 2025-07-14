@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaEdit, FaPlus } from "react-icons/fa"; // <-- Importing icons
 import "./TopicList.css";
+import { toast } from 'react-toastify';
 
 const TopicList = () => {
   const { courseName } = useParams();
@@ -54,7 +55,7 @@ const TopicList = () => {
       setEditingTopicName("");
       setError("");
       setIsSubmitted(false);
-      alert("Topic name updated successfully!");
+      toast.success("Topic name updated successfully!");
     } catch (error) {
       console.error("Error updating topic name:", error);
       setError("Failed to update topic name");
@@ -83,7 +84,7 @@ const TopicList = () => {
       setError("");
       setIsAdding(false);
       setIsSubmitted(false);
-      alert("Topic added successfully!");
+      toast.success("Topic added successfully!");
     } catch (error) {
       console.error("Error adding topic:", error);
       setError("Failed to add topic");

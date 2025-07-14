@@ -18,6 +18,8 @@ import LeaderBoard from "./pages/LeaderBoard";
 import Certificate from "./pages/Certificate";
 import PerformanceAnalytics from "./pages/PerformanceAnalytics";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Import mobile responsive CSS
 import "./mobile-responsive.css";
@@ -25,6 +27,7 @@ import "./mobile-responsive.css";
 function App() {
   return (
     <Router>
+      <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />

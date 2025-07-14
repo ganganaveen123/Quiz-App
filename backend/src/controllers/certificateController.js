@@ -1,5 +1,6 @@
 const Result = require("../models/Result");
 const PDFDocument = require("pdfkit");
+const path = require("path");
 
 const generateCertificate = async (req, res) => {
   const { username, courseName } = req.params;
@@ -27,21 +28,85 @@ const generateCertificate = async (req, res) => {
     }
 
     // Create a PDF certificate
-    const doc = new PDFDocument();
+    const doc = new PDFDocument({ size: 'A4', margin: 40 });
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", "attachment; filename=certificate.pdf");
 
-    doc.fontSize(24).text("Certificate of Completion", { align: "center" });
-    doc.moveDown();
-    doc.fontSize(18).text(`Awarded to: ${results[0].username}`, { align: "center" });
-    doc.moveDown();
-    doc.text(`For successfully completing: ${courseName}`, { align: "center" });
-    doc.moveDown();
-    doc.text(`Scored: ${userTotalScore}/${maxTotalScore} (${percentage.toFixed(2)}%)`, {
-      align: "center"
-    });
+    // Gold border
+    doc.save();
+    doc.rect(10, 10, doc.page.width - 20, doc.page.height - 20)
+      .lineWidth(6)
+      .strokeColor('#FFD700')
+      .stroke();
+    doc.restore();
 
-   
+    // Logo at top right
+    const logoPath = path.join(__dirname, '../../assets/achieve.png');
+    try {
+      doc.image(logoPath, doc.page.width - 150, 30, { width: 100 });
+    } catch (e) {
+      // If logo not found, skip
+    }
+
+    // Title
+    doc.fontSize(32)
+      .fillColor('#222')
+      .font('Helvetica-Bold')
+      .text('Certificate of Achievement', 0, 100, { align: 'center' });
+
+    // Subtitle
+    doc.moveDown(1);
+    doc.fontSize(18)
+      .fillColor('#444')
+      .font('Helvetica')
+      .text('This is to certify that', { align: 'center' });
+
+    // Recipient
+    doc.moveDown(0.5);
+    doc.fontSize(26)
+      .fillColor('#111')
+      .font('Helvetica-Bold')
+      .text(username, { align: 'center', underline: true });
+
+    // Course
+    doc.moveDown(0.5);
+    doc.fontSize(18)
+      .fillColor('#444')
+      .font('Helvetica')
+      .text(`has successfully completed the course`, { align: 'center' });
+    doc.moveDown(0.2);
+    doc.fontSize(22)
+      .fillColor('#1e3a8a')
+      .font('Helvetica-Bold')
+      .text(courseName, { align: 'center' });
+
+    // Score
+    doc.moveDown(0.5);
+    doc.fontSize(16)
+      .fillColor('#333')
+      .font('Helvetica')
+      .text(`with a score of ${userTotalScore}/${maxTotalScore} (${percentage.toFixed(2)}%)`, { align: 'center' });
+
+    // Date and signature
+    const dateStr = new Date().toLocaleDateString();
+    doc.moveDown(3);
+    doc.fontSize(14)
+      .fillColor('#888')
+      .text(`Date: ${dateStr}`, 60, doc.page.height - 120, { align: 'left' });
+    doc.fontSize(14)
+      .fillColor('#888')
+      .text('Signature:', doc.page.width - 200, doc.page.height - 120, { align: 'left' });
+    doc.moveTo(doc.page.width - 120, doc.page.height - 100)
+      .lineTo(doc.page.width - 40, doc.page.height - 100)
+      .strokeColor('#222')
+      .lineWidth(2)
+      .stroke();
+
+    // Footer
+    doc.fontSize(10)
+      .fillColor('#aaa')
+      .text('Powered by Quiz App', 0, doc.page.height - 40, { align: 'center' });
+
     doc.pipe(res);
     doc.end();
   } catch (error) {
