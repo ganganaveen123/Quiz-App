@@ -2,10 +2,10 @@ import React from 'react';
 import Sidebar from '../../components/Sidebar';
 import './AdminDashboard.css';
 import { FaUsers, FaBookOpen, FaChartBar } from 'react-icons/fa';
-import dashboardImage from '../../assets/quiz-5.jpg'; // Ensure correct path
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   return (
     <div className="admin-container">
       <Sidebar />
@@ -20,18 +20,18 @@ const AdminDashboard = () => {
         </section>
 
         <div className="admin-action-cards">
-          <Link to="/UserList" className="admin-action-card">
+          <div className="admin-action-card" onClick={() => navigate('/UserList')} style={{ cursor: 'pointer' }}>
             <FaUsers className="admin-action-icon" />
             <span>Manage Users</span>
-          </Link>
-          <Link to="/CourseList" className="admin-action-card">
+          </div>
+          <div className="admin-action-card" onClick={() => navigate('/CourseList')} style={{ cursor: 'pointer' }}>
             <FaBookOpen className="admin-action-icon" />
             <span>Manage Courses</span>
-          </Link>
-          <Link to="/analytics" className="admin-action-card">
+          </div>
+          <div className="admin-action-card" onClick={() => navigate('/analytics')} style={{ cursor: 'pointer' }}>
             <FaChartBar className="admin-action-icon" />
             <span>View Analytics</span>
-          </Link>
+          </div>
         </div>
 
         <div className="admin-dashboard-info-section">

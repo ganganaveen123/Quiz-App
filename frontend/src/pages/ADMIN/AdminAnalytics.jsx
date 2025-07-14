@@ -103,17 +103,19 @@ const AdminAnalytics = () => {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(userStats).map(([userId, stats]) => (
-              <tr key={userId}>
-                <td>{stats.name}</td>
-                <td>{stats.email}</td>
-                <td>{stats.quizzes}</td>
-                <td>{(stats.totalScore / stats.quizzes).toFixed(2)}</td>
-                <td>{stats.bestScore}</td>
-                <td>{stats.lastQuiz ? new Date(stats.lastQuiz).toLocaleString() : '-'}</td>
-                <td><button onClick={() => handleUserClick(userId)}>View Analytics</button></td>
-              </tr>
-            ))}
+            {Object.entries(userStats)
+              .filter(([_, stats]) => stats.quizzes > 0)
+              .map(([userId, stats]) => (
+                <tr key={userId}>
+                  <td style={{ color: '#1e3a8a', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleUserClick(userId)}>{stats.name}</td>
+                  <td>{stats.email}</td>
+                  <td>{stats.quizzes}</td>
+                  <td>{(stats.totalScore / stats.quizzes).toFixed(2)}</td>
+                  <td>{stats.bestScore}</td>
+                  <td>{stats.lastQuiz ? new Date(stats.lastQuiz).toLocaleString() : '-'}</td>
+                  <td><button onClick={() => handleUserClick(userId)}>View Analytics</button></td>
+                </tr>
+              ))}
           </tbody>
         </table>
 
