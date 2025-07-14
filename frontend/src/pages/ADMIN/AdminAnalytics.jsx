@@ -117,7 +117,7 @@ const AdminAnalytics = () => {
       {data.map((entry, idx) => (
         <div key={entry.name} style={{ display: 'flex', alignItems: 'center', margin: '0 16px 8px 0' }}>
           <div style={{ width: 16, height: 16, background: COLORS[idx % COLORS.length], borderRadius: 4, marginRight: 8 }}></div>
-          <span style={{ fontSize: 15 }}>{entry.name}</span>
+          <span style={{ fontSize: 15 }}>{entry.name || 'Unknown'}</span>
         </div>
       ))}
     </div>
@@ -201,18 +201,17 @@ const AdminAnalytics = () => {
         {/* Analytics Panel */}
         <div
           style={{
-            flex: 1,
+            width: 500,
+            maxWidth: '100%',
             background: '#fff',
-            borderRadius: 12,
-            boxShadow: '0 2px 8px #eee',
+            borderRadius: 16,
+            boxShadow: '0 4px 24px #e0e0e0',
             padding: 32,
-            minWidth: 400,
-            margin: 0,
+            marginLeft: 32, // Increase the left margin for more space
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'flex-start',
-            marginLeft: 10, // or margin: '0 0 0 10px'
           }}
         >
           {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
