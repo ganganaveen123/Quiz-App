@@ -20,6 +20,7 @@ import PerformanceAnalytics from "./pages/PerformanceAnalytics";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminAnalytics from "./pages/ADMIN/AdminAnalytics";
 
 // Import mobile responsive CSS
 import "./mobile-responsive.css";
@@ -97,6 +98,11 @@ function App() {
         <Route path="/courses/:courseName/questions" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <QuestionList />
+          </ProtectedRoute>
+        } />
+        <Route path="/analytics" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <AdminAnalytics />
           </ProtectedRoute>
         } />
       </Routes>

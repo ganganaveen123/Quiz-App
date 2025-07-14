@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import "./UserList.css";
 import Sidebar from '../../components/Sidebar';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  const navigate = useNavigate();
 
   const fetchUsers = async () => {
     try {
@@ -150,6 +153,9 @@ const UserList = () => {
                 <td>
                   <button onClick={() => handleDelete(user._id)}>
                     Delete
+                  </button>
+                  <button style={{ marginLeft: 8 }} onClick={() => navigate('/analytics', { state: { userId: user._id } })}>
+                    View Analytics
                   </button>
                 </td>
               </tr>
