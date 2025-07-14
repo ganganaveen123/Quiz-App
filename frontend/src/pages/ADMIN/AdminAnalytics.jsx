@@ -157,23 +157,25 @@ const AdminAnalytics = () => {
             {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
               <>
                 <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Subject-wise Performance</h3>
-                <ResponsiveContainer width={500} height={350}>
-                  <PieChart>
-                    <Pie
-                      data={getSubjectPieData(selectedUser)}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={120}
-                      label={({ name, percent }) => `${name}: ${percent}%`}
-                    >
-                      {getSubjectPieData(selectedUser).map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                  </PieChart>
-                </ResponsiveContainer>
+                <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                  <ResponsiveContainer width={500} height={350}>
+                    <PieChart>
+                      <Pie
+                        data={getSubjectPieData(selectedUser)}
+                        dataKey="value"
+                        nameKey="name"
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={120}
+                        label={({ name, percent }) => `${name}: ${percent}%`}
+                      >
+                        {getSubjectPieData(selectedUser).map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
                 <table className="dashboard-table" style={{ marginTop: 20 }}>
                   <thead>
                     <tr>
