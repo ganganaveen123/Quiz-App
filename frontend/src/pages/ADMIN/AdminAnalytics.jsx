@@ -217,14 +217,14 @@ const AdminAnalytics = () => {
           {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
             <>
               <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Subject-wise Performance</h3>
-              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                 <ResponsiveContainer width={350} height={250}>
                   <PieChart>
                     <Pie
                       data={getSubjectPieData(selectedUser)}
                       dataKey="value"
                       nameKey="name"
-                      cx="50%"
+                      cx="70%"
                       cy="45%"
                       outerRadius={90}
                       labelLine={false}
