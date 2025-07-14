@@ -34,12 +34,23 @@ const AdminDashboard = () => {
           </Link>
         </div>
 
-        <div className="admin-dashboard-image-section">
-          <img
-            src={dashboardImage}
-            alt="Dashboard Visual"
-            className="dashboard-hero-image"
-          />
+        <div className="admin-dashboard-info-section">
+          <div className="admin-dashboard-info-card">
+            <h3>Platform Aim</h3>
+            <ul>
+              <li>Empower B.Tech students and GATE aspirants with high-quality quizzes and analytics.</li>
+              <li>Provide a seamless admin experience for managing users, courses, and performance data.</li>
+              <li>Enable data-driven decisions with real-time analytics and user performance tracking.</li>
+              <li>Foster a competitive and supportive learning environment.</li>
+            </ul>
+            <h4 style={{marginTop: '18px'}}>Key Admin Actions</h4>
+            <ul>
+              <li>Add, edit, or remove users and courses.</li>
+              <li>Monitor user progress and quiz results.</li>
+              <li>Analyze platform-wide performance trends.</li>
+              <li>Ensure the integrity and quality of quiz content.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
