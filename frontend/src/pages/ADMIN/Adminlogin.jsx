@@ -29,7 +29,7 @@ const AdminLogin = () => {
             localStorage.setItem("userId", user.id);
             localStorage.setItem("username", user.name);
 
-            toast.success("Logged In Successfully");
+            toast.success("Admin Logged In Successfully");
             
             // Redirect based on user role
             if (user.role === 'admin') {
