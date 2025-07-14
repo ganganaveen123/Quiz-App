@@ -111,6 +111,18 @@ const AdminAnalytics = () => {
     setSelectedUser(userStats[userId] || { name: 'No Data', scores: [], subjectScores: {} });
   };
 
+  // Custom legend for pie chart
+  const renderCustomLegend = (data) => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: 16 }}>
+      {data.map((entry, idx) => (
+        <div key={entry.name} style={{ display: 'flex', alignItems: 'center', margin: '0 16px 8px 0' }}>
+          <div style={{ width: 16, height: 16, background: COLORS[idx % COLORS.length], borderRadius: 4, marginRight: 8 }}></div>
+          <span style={{ fontSize: 15 }}>{entry.name}</span>
+        </div>
+      ))}
+    </div>
+  );
+
   if (loading) return <div className="admin-container"><Sidebar /><div className="dashboard-main-content"><h2>Loading analytics...</h2></div></div>;
   if (error) return <div className="admin-container"><Sidebar /><div className="dashboard-main-content"><h2>{error}</h2></div></div>;
 
@@ -124,20 +136,31 @@ const AdminAnalytics = () => {
           {usersWithQuizzes.length === 0 ? (
             <p style={{ textAlign: 'center', marginTop: 20 }}>No users have participated in quizzes yet.</p>
           ) : (
-            <table className="dashboard-table" style={{ marginTop: 10, background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #eee', cursor: 'pointer' }}>
+            <table className="dashboard-table" style={{ marginTop: 10, background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #eee' }}>
               <thead>
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Quizzes Taken</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {usersWithQuizzes.map(([userId, stats], idx) => (
-                  <tr key={userId} style={{ background: idx % 2 === 0 ? '#f9f9f9' : '#fff' }} onClick={() => handleUserClick(userId)}>
+                  <tr key={userId} style={{ background: idx % 2 === 0 ? '#f9f9f9' : '#fff' }}>
                     <td>{stats.name || 'N/A'}</td>
                     <td>{stats.email || 'N/A'}</td>
                     <td style={{ textAlign: 'center' }}>{stats.quizzes}</td>
+                    <td>
+                      <button
+                        style={{
+                          background: '#1e3a8a', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 16px', cursor: 'pointer', fontWeight: 600
+                        }}
+                        onClick={() => handleUserClick(userId)}
+                      >
+                        View Analytics
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -160,15 +183,15 @@ const AdminAnalytics = () => {
                       cy="45%"
                       outerRadius={120}
                       labelLine={false}
-                      label={({ name, percent }) => `${name}: ${percent}%`}
+                      label={({ percent }) => `${percent}%`}
                     >
                       {getSubjectPieData(selectedUser).map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <Legend layout="horizontal" verticalAlign="bottom" align="center" />
                   </PieChart>
                 </ResponsiveContainer>
+                {renderCustomLegend(getSubjectPieData(selectedUser))}
               </div>
               <table className="dashboard-table" style={{ marginTop: 20 }}>
                 <thead>
