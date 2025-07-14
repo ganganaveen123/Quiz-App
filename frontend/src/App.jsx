@@ -21,6 +21,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminAnalytics from "./pages/ADMIN/AdminAnalytics";
+import UserAnalyticsView from './pages/ADMIN/UserAnalyticsView';
 
 // Import mobile responsive CSS
 import "./mobile-responsive.css";
@@ -98,6 +99,11 @@ function App() {
         <Route path="/admin/analytics" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <AdminAnalytics />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin/analytics/:userId" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <UserAnalyticsView />
           </ProtectedRoute>
         } />
         <Route path="/courses/:courseName/topics" element={
