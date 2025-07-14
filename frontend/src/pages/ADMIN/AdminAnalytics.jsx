@@ -129,16 +129,19 @@ const AdminAnalytics = () => {
   return (
     <div className="admin-container">
       <Sidebar />
-      <div className="dashboard-main-content"
+      <div
+        className="dashboard-main-content"
         style={{
           display: 'flex',
+          flexDirection: 'row',
           gap: 32,
           alignItems: 'flex-start',
-          justifyContent: 'flex-start', // force left alignment
-          padding: 0,
+          justifyContent: 'flex-start',
+          height: '100%',
+          width: '100%',
         }}
       >
-        {/* User List/Table */}
+        {/* User Table */}
         <div
           style={{
             width: 340,
@@ -193,12 +196,16 @@ const AdminAnalytics = () => {
             padding: 24,
             minWidth: 400,
             margin: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start', // <-- align content to the left of the panel
+            justifyContent: 'flex-start',
           }}
         >
           {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
             <>
               <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Subject-wise Performance</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <ResponsiveContainer width={500} height={350}>
                   <PieChart>
                     <Pie
