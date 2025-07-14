@@ -4,6 +4,7 @@ import './AdminDashboard.css';
 import { Modal } from '@mui/material';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, Legend } from 'recharts';
 import { useLocation } from 'react-router-dom';
+import { PieChart, Pie, Cell } from 'recharts';
 
 const AdminAnalytics = () => {
   const [userResults, setUserResults] = useState([]);
@@ -71,6 +72,18 @@ const AdminAnalytics = () => {
     }));
   };
 
+  // Prepare subject-wise pie chart data for selected user
+  const getSubjectPieData = (user) => {
+    if (!user || !user.subjectScores) return [];
+    const total = Object.values(user.subjectScores).flat().reduce((a, b) => a + b, 0);
+    return Object.entries(user.subjectScores).map(([course, scores]) => ({
+      name: course,
+      value: scores.reduce((a, b) => a + b, 0),
+      percent: total ? ((scores.reduce((a, b) => a + b, 0) / total) * 100).toFixed(1) : 0
+    }));
+  };
+  const COLORS = ['#fa8507', '#1e3a8a', '#82ca9d', '#8884d8', '#ffc658', '#ff8042', '#8dd1e1'];
+
   // Only show users who have participated in at least one quiz
   const usersWithQuizzes = Object.entries(userStats).filter(([_, stats]) => stats.quizzes > 0);
 
@@ -122,15 +135,21 @@ const AdminAnalytics = () => {
               <>
                 <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Subject-wise Performance</h3>
                 <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={getSubjectChartData(selectedUser)}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="course" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="avgScore" fill="#fa8507" name="Avg Score" />
-                    <Bar dataKey="attempts" fill="#1e3a8a" name="Attempts" />
-                  </BarChart>
+                  <PieChart>
+                    <Pie
+                      data={getSubjectPieData(selectedUser)}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={100}
+                      label={({ name, percent }) => `${name}: ${percent}%`}
+                    >
+                      {getSubjectPieData(selectedUser).map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                  </PieChart>
                 </ResponsiveContainer>
                 <table className="dashboard-table" style={{ marginTop: 20 }}>
                   <thead>

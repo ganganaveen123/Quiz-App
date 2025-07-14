@@ -154,9 +154,6 @@ const UserList = () => {
                   <button onClick={() => handleDelete(user._id)}>
                     Delete
                   </button>
-                  <button style={{ marginLeft: 8 }} onClick={() => navigate('/analytics', { state: { userId: user._id } })}>
-                    View Analytics
-                  </button>
                 </td>
               </tr>
             ))}
