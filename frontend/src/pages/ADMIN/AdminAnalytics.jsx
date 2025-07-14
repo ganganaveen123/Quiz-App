@@ -3,6 +3,7 @@ import Sidebar from '../../components/Sidebar';
 import './AdminDashboard.css';
 import { Modal } from '@mui/material';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, Legend } from 'recharts';
+import { useLocation } from 'react-router-dom';
 
 const AdminAnalytics = () => {
   const [userResults, setUserResults] = useState([]);
@@ -10,6 +11,7 @@ const AdminAnalytics = () => {
   const [error, setError] = useState('');
   const [selectedUser, setSelectedUser] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -60,8 +62,23 @@ const AdminAnalytics = () => {
     });
   });
 
+  // Auto-open modal if userId is passed in navigation state
+  useEffect(() => {
+    if (!loading && location.state && location.state.userId) {
+      const stats = userStats[location.state.userId];
+      if (stats) {
+        setSelectedUser(stats);
+        setModalOpen(true);
+      } else {
+        setSelectedUser({ name: 'No Data', scores: [] });
+        setModalOpen(true);
+      }
+    }
+    // eslint-disable-next-line
+  }, [loading, location.state]);
+
   const handleUserClick = (userId) => {
-    setSelectedUser(userStats[userId]);
+    setSelectedUser(userStats[userId] || { name: 'No Data', scores: [] });
     setModalOpen(true);
   };
 
@@ -102,7 +119,7 @@ const AdminAnalytics = () => {
 
         <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
           <div style={{ background: '#fff', padding: 30, borderRadius: 12, maxWidth: 600, margin: '60px auto', outline: 'none' }}>
-            {selectedUser && (
+            {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
               <>
                 <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Performance</h3>
                 <ResponsiveContainer width="100%" height={300}>
@@ -134,6 +151,10 @@ const AdminAnalytics = () => {
                   </tbody>
                 </table>
               </>
+            ) : (
+              <div style={{ textAlign: 'center', fontSize: 18, color: '#888', padding: 40 }}>
+                No quiz data available for this user.
+              </div>
             )}
           </div>
         </Modal>
