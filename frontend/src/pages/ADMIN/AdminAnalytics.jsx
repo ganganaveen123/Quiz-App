@@ -44,23 +44,35 @@ const AdminAnalytics = () => {
         name: result.userId?.name || result.username,
         email: result.userId?.email || '',
         quizzes: 0,
-        totalScore: 0,
-        bestScore: 0,
-        lastQuiz: null,
         scores: [],
+        subjectScores: {},
       };
     }
     userStats[userId].quizzes += 1;
-    userStats[userId].totalScore += result.score;
-    userStats[userId].bestScore = Math.max(userStats[userId].bestScore, result.score);
-    userStats[userId].lastQuiz = !userStats[userId].lastQuiz || new Date(result.submittedAt) > new Date(userStats[userId].lastQuiz)
-      ? result.submittedAt : userStats[userId].lastQuiz;
     userStats[userId].scores.push({
       course: result.courseName,
       score: result.score,
       date: result.submittedAt,
     });
+    // Aggregate subject/course scores
+    if (!userStats[userId].subjectScores[result.courseName]) {
+      userStats[userId].subjectScores[result.courseName] = [];
+    }
+    userStats[userId].subjectScores[result.courseName].push(result.score);
   });
+
+  // Prepare subject-wise chart data for selected user
+  const getSubjectChartData = (user) => {
+    if (!user || !user.subjectScores) return [];
+    return Object.entries(user.subjectScores).map(([course, scores]) => ({
+      course,
+      avgScore: (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(2),
+      attempts: scores.length
+    }));
+  };
+
+  // Only show users who have participated in at least one quiz
+  const usersWithQuizzes = Object.entries(userStats).filter(([_, stats]) => stats.quizzes > 0);
 
   // Auto-open modal if userId is passed in navigation state
   useEffect(() => {
@@ -70,7 +82,7 @@ const AdminAnalytics = () => {
         setSelectedUser(stats);
         setModalOpen(true);
       } else {
-        setSelectedUser({ name: 'No Data', scores: [] });
+        setSelectedUser({ name: 'No Data', scores: [], subjectScores: {} });
         setModalOpen(true);
       }
     }
@@ -78,7 +90,7 @@ const AdminAnalytics = () => {
   }, [loading, location.state]);
 
   const handleUserClick = (userId) => {
-    setSelectedUser(userStats[userId] || { name: 'No Data', scores: [] });
+    setSelectedUser(userStats[userId] || { name: 'No Data', scores: [], subjectScores: {} });
     setModalOpen(true);
   };
 
@@ -90,48 +102,34 @@ const AdminAnalytics = () => {
       <Sidebar />
       <div className="dashboard-main-content">
         <h2 style={{ textAlign: 'center', marginBottom: 30 }}>User Quiz Analytics</h2>
-        <table className="dashboard-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Total Quizzes</th>
-              <th>Avg Score</th>
-              <th>Best Score</th>
-              <th>Last Quiz</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(userStats)
-              .filter(([_, stats]) => stats.quizzes > 0)
-              .map(([userId, stats]) => (
-                <tr key={userId}>
-                  <td style={{ color: '#1e3a8a', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleUserClick(userId)}>{stats.name}</td>
-                  <td>{stats.email}</td>
-                  <td>{stats.quizzes}</td>
-                  <td>{(stats.totalScore / stats.quizzes).toFixed(2)}</td>
-                  <td>{stats.bestScore}</td>
-                  <td>{stats.lastQuiz ? new Date(stats.lastQuiz).toLocaleString() : '-'}</td>
-                  <td><button onClick={() => handleUserClick(userId)}>View Analytics</button></td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        <div style={{ maxWidth: 600, margin: '0 auto' }}>
+          <h3>Users who participated:</h3>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            {usersWithQuizzes.length === 0 && <li>No users have participated in quizzes yet.</li>}
+            {usersWithQuizzes.map(([userId, stats]) => (
+              <li key={userId} style={{ marginBottom: 12 }}>
+                <span style={{ color: '#1e3a8a', cursor: 'pointer', textDecoration: 'underline', fontWeight: 600 }} onClick={() => handleUserClick(userId)}>
+                  {stats.name} ({stats.email})
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
           <div style={{ background: '#fff', padding: 30, borderRadius: 12, maxWidth: 600, margin: '60px auto', outline: 'none' }}>
             {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
               <>
-                <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Performance</h3>
+                <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Subject-wise Performance</h3>
                 <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={selectedUser.scores.map(s => ({ ...s, date: new Date(s.date).toLocaleDateString() }))}>
+                  <BarChart data={getSubjectChartData(selectedUser)}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
+                    <XAxis dataKey="course" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="score" fill="#fa8507" name="Score" />
+                    <Bar dataKey="avgScore" fill="#fa8507" name="Avg Score" />
+                    <Bar dataKey="attempts" fill="#1e3a8a" name="Attempts" />
                   </BarChart>
                 </ResponsiveContainer>
                 <table className="dashboard-table" style={{ marginTop: 20 }}>
