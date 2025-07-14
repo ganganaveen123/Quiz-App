@@ -129,9 +129,25 @@ const AdminAnalytics = () => {
   return (
     <div className="admin-container">
       <Sidebar />
-      <div className="dashboard-main-content" style={{ display: 'flex', gap: 32, alignItems: 'flex-start' }}>
+      <div className="dashboard-main-content"
+        style={{
+          display: 'flex',
+          gap: 32,
+          alignItems: 'flex-start',
+          justifyContent: 'flex-start', // force left alignment
+          padding: 0,
+        }}
+      >
         {/* User List/Table */}
-        <div style={{ width: 340, minWidth: 280, flexShrink: 0 }}>
+        <div
+          style={{
+            width: 340,
+            minWidth: 280,
+            flexShrink: 0,
+            margin: 0,
+            alignSelf: 'flex-start',
+          }}
+        >
           <h3>Users who participated:</h3>
           {usersWithQuizzes.length === 0 ? (
             <p style={{ textAlign: 'center', marginTop: 20 }}>No users have participated in quizzes yet.</p>
@@ -168,7 +184,17 @@ const AdminAnalytics = () => {
           )}
         </div>
         {/* Analytics Panel */}
-        <div style={{ flex: 1, background: '#fff', borderRadius: 12, boxShadow: '0 2px 8px #eee', padding: 24, minWidth: 400 }}>
+        <div
+          style={{
+            flex: 1,
+            background: '#fff',
+            borderRadius: 12,
+            boxShadow: '0 2px 8px #eee',
+            padding: 24,
+            minWidth: 400,
+            margin: 0,
+          }}
+        >
           {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
             <>
               <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Subject-wise Performance</h3>
