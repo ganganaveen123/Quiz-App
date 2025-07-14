@@ -52,36 +52,36 @@ const generateCertificate = async (req, res) => {
     doc.fontSize(32)
       .fillColor('#222')
       .font('Helvetica-Bold')
-      .text('Certificate of Achievement', 0, 100, { align: 'center' });
+      .text('Certificate of Achievement', 0, 80, { align: 'center' });
 
     // Subtitle
-    doc.moveDown(1);
+    doc.moveDown(0.5);
     doc.fontSize(18)
       .fillColor('#444')
       .font('Helvetica')
       .text('This is to certify that', { align: 'center' });
 
     // Recipient
-    doc.moveDown(0.5);
+    doc.moveDown(0.3);
     doc.fontSize(26)
       .fillColor('#111')
       .font('Helvetica-Bold')
       .text(username, { align: 'center', underline: true });
 
     // Course
-    doc.moveDown(0.5);
+    doc.moveDown(0.3);
     doc.fontSize(18)
       .fillColor('#444')
       .font('Helvetica')
       .text(`has successfully completed the course`, { align: 'center' });
-    doc.moveDown(0.2);
+    doc.moveDown(0.1);
     doc.fontSize(22)
       .fillColor('#1e3a8a')
       .font('Helvetica-Bold')
       .text(courseName, { align: 'center' });
 
     // Score
-    doc.moveDown(0.5);
+    doc.moveDown(0.3);
     doc.fontSize(16)
       .fillColor('#333')
       .font('Helvetica')
@@ -89,18 +89,25 @@ const generateCertificate = async (req, res) => {
 
     // Date and signature
     const dateStr = new Date().toLocaleDateString();
-    doc.moveDown(3);
+    // Place signature and date closer to the bottom, but not too low
+    const sigY = doc.page.height - 120;
     doc.fontSize(14)
       .fillColor('#888')
-      .text(`Date: ${dateStr}`, 60, doc.page.height - 120, { align: 'left' });
+      .text(`Date: ${dateStr}`, 60, sigY, { align: 'left' });
     doc.fontSize(14)
       .fillColor('#888')
-      .text('Signature:', doc.page.width - 200, doc.page.height - 120, { align: 'left' });
-    doc.moveTo(doc.page.width - 120, doc.page.height - 100)
-      .lineTo(doc.page.width - 40, doc.page.height - 100)
+      .text('Signature:', doc.page.width - 200, sigY, { align: 'left' });
+    doc.moveTo(doc.page.width - 120, sigY + 20)
+      .lineTo(doc.page.width - 40, sigY + 20)
       .strokeColor('#222')
       .lineWidth(2)
       .stroke();
+
+    // Add a styled signature (Naveen)
+    doc.fontSize(28)
+      .fillColor('#222')
+      .font('Helvetica-Oblique')
+      .text('Naveen', doc.page.width - 140, sigY + 10, { align: 'left', italic: true });
 
     // Footer
     doc.fontSize(10)
