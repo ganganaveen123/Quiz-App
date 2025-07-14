@@ -212,6 +212,7 @@ const AdminAnalytics = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'flex-start',
+            marginLeft: 10, // or margin: '0 0 0 10px'
           }}
         >
           {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
