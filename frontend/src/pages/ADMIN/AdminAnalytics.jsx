@@ -93,18 +93,22 @@ const AdminAnalytics = () => {
       const stats = userStats[location.state.userId];
       if (stats) {
         setSelectedUser(stats);
-        setModalOpen(true);
       } else {
         setSelectedUser({ name: 'No Data', scores: [], subjectScores: {} });
-        setModalOpen(true);
       }
     }
     // eslint-disable-next-line
   }, [loading, location.state]);
 
+  // Set default selected user to the first in the list
+  useEffect(() => {
+    if (!selectedUser && usersWithQuizzes.length > 0) {
+      setSelectedUser(usersWithQuizzes[0][1]);
+    }
+  }, [usersWithQuizzes, selectedUser]);
+
   const handleUserClick = (userId) => {
     setSelectedUser(userStats[userId] || { name: 'No Data', scores: [], subjectScores: {} });
-    setModalOpen(true);
   };
 
   if (loading) return <div className="admin-container"><Sidebar /><div className="dashboard-main-content"><h2>Loading analytics...</h2></div></div>;
@@ -113,95 +117,84 @@ const AdminAnalytics = () => {
   return (
     <div className="admin-container">
       <Sidebar />
-      <div className="dashboard-main-content">
-        <h2 style={{ textAlign: 'center', marginBottom: 30 }}>User Quiz Analytics</h2>
-        <div style={{ maxWidth: 800, margin: '0 auto' }}>
+      <div className="dashboard-main-content" style={{ display: 'flex', gap: 32 }}>
+        {/* User List/Table */}
+        <div style={{ maxWidth: 400, flex: '1 1 0' }}>
           <h3>Users who participated:</h3>
           {usersWithQuizzes.length === 0 ? (
             <p style={{ textAlign: 'center', marginTop: 20 }}>No users have participated in quizzes yet.</p>
           ) : (
-            <table className="dashboard-table" style={{ marginTop: 10, background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #eee' }}>
+            <table className="dashboard-table" style={{ marginTop: 10, background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #eee', cursor: 'pointer' }}>
               <thead>
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Quizzes Taken</th>
-                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {usersWithQuizzes.map(([userId, stats], idx) => (
-                  <tr key={userId} style={{ background: idx % 2 === 0 ? '#f9f9f9' : '#fff' }}>
+                  <tr key={userId} style={{ background: idx % 2 === 0 ? '#f9f9f9' : '#fff' }} onClick={() => handleUserClick(userId)}>
                     <td>{stats.name || 'N/A'}</td>
                     <td>{stats.email || 'N/A'}</td>
                     <td style={{ textAlign: 'center' }}>{stats.quizzes}</td>
-                    <td>
-                      <button
-                        style={{
-                          background: '#1e3a8a', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 16px', cursor: 'pointer', fontWeight: 600
-                        }}
-                        onClick={() => handleUserClick(userId)}
-                      >
-                        View Analytics
-                      </button>
-                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           )}
         </div>
-
-        <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-          <div style={{ background: '#fff', padding: 30, borderRadius: 12, maxWidth: 800, minWidth: 400, margin: '60px auto', outline: 'none' }}>
-            {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
-              <>
-                <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Subject-wise Performance</h3>
-                <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                  <ResponsiveContainer width={500} height={350}>
-                    <PieChart>
-                      <Pie
-                        data={getSubjectPieData(selectedUser)}
-                        dataKey="value"
-                        nameKey="name"
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={120}
-                        label={({ name, percent }) => `${name}: ${percent}%`}
-                      >
-                        {getSubjectPieData(selectedUser).map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <table className="dashboard-table" style={{ marginTop: 20 }}>
-                  <thead>
-                    <tr>
-                      <th>Course</th>
-                      <th>Score</th>
-                      <th>Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {selectedUser.scores.map((s, idx) => (
-                      <tr key={idx}>
-                        <td>{s.course}</td>
-                        <td>{s.score}</td>
-                        <td>{new Date(s.date).toLocaleString()}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </>
-            ) : (
-              <div style={{ textAlign: 'center', fontSize: 18, color: '#888', padding: 40 }}>
-                No quiz data available for this user.
+        {/* Analytics Panel */}
+        <div style={{ flex: '2 1 0', background: '#fff', borderRadius: 12, boxShadow: '0 2px 8px #eee', padding: 24, minWidth: 400 }}>
+          {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
+            <>
+              <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Subject-wise Performance</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                <ResponsiveContainer width={500} height={350}>
+                  <PieChart>
+                    <Pie
+                      data={getSubjectPieData(selectedUser)}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="45%"
+                      outerRadius={120}
+                      labelLine={false}
+                      label={({ name, percent }) => `${name}: ${percent}%`}
+                    >
+                      {getSubjectPieData(selectedUser).map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Legend layout="horizontal" verticalAlign="bottom" align="center" />
+                  </PieChart>
+                </ResponsiveContainer>
               </div>
-            )}
-          </div>
-        </Modal>
+              <table className="dashboard-table" style={{ marginTop: 20 }}>
+                <thead>
+                  <tr>
+                    <th>Course</th>
+                    <th>Score</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {selectedUser.scores.map((s, idx) => (
+                    <tr key={idx}>
+                      <td>{s.course}</td>
+                      <td>{s.score}</td>
+                      <td>{new Date(s.date).toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          ) : (
+            <div style={{ textAlign: 'center', fontSize: 18, color: '#888', padding: 40 }}>
+              No quiz data available for this user.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
