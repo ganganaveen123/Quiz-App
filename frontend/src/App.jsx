@@ -32,13 +32,13 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/Userlogin" element={<Userlogin />} />
-        <Route path="/Adminlogin" element={<Adminlogin />} />
-        <Route path="/UserRegistration" element={<UserRegistration />} />
-        <Route path="/AdminRegistration" element={<AdminRegistration />} />
+        <Route path="/userlogin" element={<Userlogin />} />
+        <Route path="/adminlogin" element={<Adminlogin />} />
+        <Route path="/userregistration" element={<UserRegistration />} />
+        <Route path="/adminregistration" element={<AdminRegistration />} />
 
         {/* User-Only Routes */}
-        <Route path="/UserDashboard" element={
+        <Route path="/userdashboard" element={
           <ProtectedRoute allowedRoles={['user']}>
             <UserDashboard />
           </ProtectedRoute>
@@ -64,7 +64,7 @@ function App() {
           </ProtectedRoute>
         } />
         <Route path="/analytics" element={
-          <ProtectedRoute allowedRoles={['user']}>
+          <ProtectedRoute allowedRoles={['user','admin']}>
             <PerformanceAnalytics />
           </ProtectedRoute>
         } />
@@ -80,14 +80,24 @@ function App() {
         } />
 
         {/* Admin-Only Routes */}
-        <Route path="/AdminDashboard" element={
+        <Route path="/admindashboard" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <AdminDashboard />
           </ProtectedRoute>
         }/>
-        <Route path="/CourseList" element={
+        <Route path="/courselist" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <CourseList/>
+          </ProtectedRoute>
+        } />
+        <Route path="/userlist" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <UserList/>
+          </ProtectedRoute>
+        } />
+        <Route path="/analytics" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <AdminAnalytics />
           </ProtectedRoute>
         } />
         <Route path="/courses/:courseName/topics" element={
@@ -98,11 +108,6 @@ function App() {
         <Route path="/courses/:courseName/questions" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <QuestionList />
-          </ProtectedRoute>
-        } />
-        <Route path="/analytics" element={
-          <ProtectedRoute allowedRoles={['admin']}>
-            <AdminAnalytics />
           </ProtectedRoute>
         } />
       </Routes>

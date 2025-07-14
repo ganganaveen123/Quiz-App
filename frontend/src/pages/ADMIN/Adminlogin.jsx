@@ -33,9 +33,9 @@ const AdminLogin = () => {
             
             // Redirect based on user role
             if (user.role === 'admin') {
-                navigate("/AdminDashboard");
+                navigate("/admindashboard");
             } else {
-                navigate("/UserDashboard");
+                navigate("/userdashboard");
             }
         } catch (error) {
             const msg = error.response?.data?.message || "Login failed";

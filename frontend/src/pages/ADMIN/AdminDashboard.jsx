@@ -20,11 +20,11 @@ const AdminDashboard = () => {
         </section>
 
         <div className="admin-action-cards">
-          <div className="admin-action-card" onClick={() => navigate('/UserList')} style={{ cursor: 'pointer' }}>
+          <div className="admin-action-card" onClick={() => navigate('/userlist')} style={{ cursor: 'pointer' }}>
             <FaUsers className="admin-action-icon" />
             <span>Manage Users</span>
           </div>
-          <div className="admin-action-card" onClick={() => navigate('/CourseList')} style={{ cursor: 'pointer' }}>
+          <div className="admin-action-card" onClick={() => navigate('/courselist')} style={{ cursor: 'pointer' }}>
             <FaBookOpen className="admin-action-icon" />
             <span>Manage Courses</span>
           </div>
