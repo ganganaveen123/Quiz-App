@@ -28,7 +28,7 @@ const AdminDashboard = () => {
             <FaBookOpen className="admin-action-icon" />
             <span>Manage Courses</span>
           </div>
-          <div className="admin-action-card" onClick={() => navigate('/analytics')} style={{ cursor: 'pointer' }}>
+          <div className="admin-action-card" onClick={() => navigate('/admin/analytics')} style={{ cursor: 'pointer' }}>
             <FaChartBar className="admin-action-icon" />
             <span>View Analytics</span>
           </div>

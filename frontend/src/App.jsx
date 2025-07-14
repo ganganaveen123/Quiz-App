@@ -95,7 +95,7 @@ function App() {
             <UserList/>
           </ProtectedRoute>
         } />
-        <Route path="/analytics" element={
+        <Route path="/admin/analytics" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <AdminAnalytics />
           </ProtectedRoute>
