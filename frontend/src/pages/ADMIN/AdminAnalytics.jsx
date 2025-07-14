@@ -3,7 +3,7 @@ import Sidebar from '../../components/Sidebar';
 import './AdminDashboard.css';
 import { Modal } from '@mui/material';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, Legend } from 'recharts';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PieChart, Pie, Cell } from 'recharts';
 
 const AdminAnalytics = () => {
@@ -13,6 +13,7 @@ const AdminAnalytics = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -133,31 +134,26 @@ const AdminAnalytics = () => {
         className="dashboard-main-content"
         style={{
           display: 'flex',
-          flexDirection: 'row',
-          gap: 32,
-          alignItems: 'flex-start',
-          justifyContent: 'flex-start',
-          height: '100%',
-          width: '100%',
-          background: '#f5f5f5', // Soft background for the whole dashboard
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          background: '#f5f5f5',
           padding: '20px',
         }}
       >
-        {/* User Table */}
         <div
           style={{
-            width: 340,
-            minWidth: 280,
-            flexShrink: 0,
-            margin: 0,
-            alignSelf: 'flex-start',
+            width: 500,
+            maxWidth: '100%',
             background: '#f8f9fa',
             borderRadius: 12,
             boxShadow: '0 2px 8px #eee',
-            padding: 16,
+            padding: 24,
+            margin: '0 auto',
           }}
         >
-          <h3>Users who participated:</h3>
+          <h3 style={{ textAlign: 'center' }}>Users who participated:</h3>
           {usersWithQuizzes.length === 0 ? (
             <p style={{ textAlign: 'center', marginTop: 20 }}>No users have participated in quizzes yet.</p>
           ) : (
@@ -175,8 +171,8 @@ const AdminAnalytics = () => {
                   <tr
                     key={userId}
                     style={{
-                      background: selectedUser && selectedUser.name === stats.name ? '#e3eaff' : (idx % 2 === 0 ? '#f9f9f9' : '#fff'),
-                      cursor: 'pointer'
+                      background: idx % 2 === 0 ? '#f9f9f9' : '#fff',
+                      cursor: 'pointer',
                     }}
                   >
                     <td>{stats.name || 'N/A'}</td>
@@ -187,7 +183,7 @@ const AdminAnalytics = () => {
                         style={{
                           background: '#1e3a8a', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 16px', cursor: 'pointer', fontWeight: 600, fontSize: 14
                         }}
-                        onClick={() => handleUserClick(userId)}
+                        onClick={() => navigate(`/admin/analytics/${userId}`)}
                       >
                         View Analytics
                       </button>
@@ -198,72 +194,6 @@ const AdminAnalytics = () => {
             </table>
           )}
         </div>
-        {/* Analytics Panel */}
-        <div
-          style={{
-            width: 500,
-            maxWidth: '100%',
-            background: '#fff',
-            borderRadius: 16,
-            boxShadow: '0 4px 24px #e0e0e0',
-            padding: 32,
-            marginLeft: 32, // Increase the left margin for more space
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-          }}
-        >
-          {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
-            <>
-              <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Subject-wise Performance</h3>
-              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <ResponsiveContainer width={350} height={250}>
-                  <PieChart>
-                    <Pie
-                      data={getSubjectPieData(selectedUser)}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="70%"
-                      cy="45%"
-                      outerRadius={90}
-                      labelLine={false}
-                      label={({ percent }) => `${percent}%`}
-                    >
-                      {getSubjectPieData(selectedUser).map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                  </PieChart>
-                </ResponsiveContainer>
-                {renderCustomLegend(getSubjectPieData(selectedUser))}
-              </div>
-              <table className="dashboard-table" style={{ marginTop: 20 }}>
-                <thead>
-                  <tr>
-                    <th>Course</th>
-                    <th>Score</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {selectedUser.scores.map((s, idx) => (
-                    <tr key={idx}>
-                      <td>{s.course}</td>
-                      <td>{s.score}</td>
-                      <td>{new Date(s.date).toLocaleString()}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </>
-          ) : (
-            <div style={{ textAlign: 'center', fontSize: 18, color: '#888', padding: 40 }}>
-              No quiz data available for this user.
-            </div>
-          )}
-        </div>
-        <hr style={{ width: '100%', margin: '32px 0', border: 'none', borderTop: '1px solid #eee' }} />
       </div>
     </div>
   );
