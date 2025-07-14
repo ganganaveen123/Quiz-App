@@ -186,9 +186,6 @@ const UserList = () => {
                   <button onClick={() => handleDelete(user._id)}>
                     Delete
                   </button>
-                  <button style={{ marginLeft: 8 }} onClick={() => handleViewAnalytics(user)}>
-                    View Analytics
-                  </button>
                 </td>
               </tr>
             ))}

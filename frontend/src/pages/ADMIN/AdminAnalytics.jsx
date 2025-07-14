@@ -153,11 +153,11 @@ const AdminAnalytics = () => {
         </div>
 
         <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-          <div style={{ background: '#fff', padding: 30, borderRadius: 12, maxWidth: 600, margin: '60px auto', outline: 'none' }}>
+          <div style={{ background: '#fff', padding: 30, borderRadius: 12, maxWidth: 800, minWidth: 400, margin: '60px auto', outline: 'none' }}>
             {selectedUser && selectedUser.scores && selectedUser.scores.length > 0 ? (
               <>
                 <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Subject-wise Performance</h3>
-                <ResponsiveContainer width="100%" height={300}>
+                <ResponsiveContainer width={500} height={350}>
                   <PieChart>
                     <Pie
                       data={getSubjectPieData(selectedUser)}
@@ -165,7 +165,7 @@ const AdminAnalytics = () => {
                       nameKey="name"
                       cx="50%"
                       cy="50%"
-                      outerRadius={100}
+                      outerRadius={120}
                       label={({ name, percent }) => `${name}: ${percent}%`}
                     >
                       {getSubjectPieData(selectedUser).map((entry, index) => (
