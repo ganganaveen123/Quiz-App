@@ -3,11 +3,19 @@ import "./UserList.css";
 import Sidebar from '../../components/Sidebar';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { Modal } from '@mui/material';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [analyticsModalOpen, setAnalyticsModalOpen] = useState(false);
+  const [analyticsLoading, setAnalyticsLoading] = useState(false);
+  const [analyticsError, setAnalyticsError] = useState('');
+  const [analyticsData, setAnalyticsData] = useState(null);
+  const [analyticsUser, setAnalyticsUser] = useState(null);
+  const COLORS = ['#fa8507', '#1e3a8a', '#82ca9d', '#8884d8', '#ffc658', '#ff8042', '#8dd1e1'];
 
   const navigate = useNavigate();
 
@@ -78,6 +86,30 @@ const UserList = () => {
     } catch (error) {
       console.error('Error deleting user:', error);
       toast.error('Error deleting user. Please try again.');
+    }
+  };
+
+  const handleViewAnalytics = async (user) => {
+    setAnalyticsUser(user);
+    setAnalyticsLoading(true);
+    setAnalyticsError('');
+    setAnalyticsModalOpen(true);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`https://quiz-app-dq18.onrender.com/api/user/${user._id}/analytics`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!response.ok) throw new Error('Failed to fetch analytics');
+      const data = await response.json();
+      setAnalyticsData(data);
+    } catch (err) {
+      setAnalyticsError('Failed to load analytics');
+      setAnalyticsData(null);
+    } finally {
+      setAnalyticsLoading(false);
     }
   };
 
@@ -154,6 +186,9 @@ const UserList = () => {
                   <button onClick={() => handleDelete(user._id)}>
                     Delete
                   </button>
+                  <button style={{ marginLeft: 8 }} onClick={() => handleViewAnalytics(user)}>
+                    View Analytics
+                  </button>
                 </td>
               </tr>
             ))}
@@ -161,6 +196,56 @@ const UserList = () => {
         </table>
         )}
       </div>
+      <Modal open={analyticsModalOpen} onClose={() => setAnalyticsModalOpen(false)}>
+        <div style={{ background: '#fff', padding: 30, borderRadius: 12, maxWidth: 600, margin: '60px auto', outline: 'none' }}>
+          {analyticsLoading ? (
+            <div style={{ textAlign: 'center' }}>Loading analytics...</div>
+          ) : analyticsError ? (
+            <div style={{ textAlign: 'center', color: 'red' }}>{analyticsError}</div>
+          ) : analyticsData && analyticsData.length > 0 ? (
+            <>
+              <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{analyticsUser?.name}'s Subject-wise Performance</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={analyticsData.map(d => ({ name: d.courseName, value: d.averageScore }))}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    label={({ name, value }) => `${name}: ${value}`}
+                  >
+                    {analyticsData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+              <table className="dashboard-table" style={{ marginTop: 20 }}>
+                <thead>
+                  <tr>
+                    <th>Course</th>
+                    <th>Average Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {analyticsData.map((d, idx) => (
+                    <tr key={idx}>
+                      <td>{d.courseName}</td>
+                      <td>{d.averageScore}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          ) : (
+            <div style={{ textAlign: 'center', fontSize: 18, color: '#888', padding: 40 }}>
+              No quiz data available for this user.
+            </div>
+          )}
+        </div>
+      </Modal>
     </div>
   );
 };
