@@ -139,6 +139,8 @@ const AdminAnalytics = () => {
           justifyContent: 'flex-start',
           height: '100%',
           width: '100%',
+          background: '#f5f5f5', // Soft background for the whole dashboard
+          padding: '20px',
         }}
       >
         {/* User Table */}
@@ -149,6 +151,10 @@ const AdminAnalytics = () => {
             flexShrink: 0,
             margin: 0,
             alignSelf: 'flex-start',
+            background: '#f8f9fa',
+            borderRadius: 12,
+            boxShadow: '0 2px 8px #eee',
+            padding: 16,
           }}
         >
           <h3>Users who participated:</h3>
@@ -166,14 +172,20 @@ const AdminAnalytics = () => {
               </thead>
               <tbody>
                 {usersWithQuizzes.map(([userId, stats], idx) => (
-                  <tr key={userId} style={{ background: idx % 2 === 0 ? '#f9f9f9' : '#fff' }}>
+                  <tr
+                    key={userId}
+                    style={{
+                      background: selectedUser && selectedUser.name === stats.name ? '#e3eaff' : (idx % 2 === 0 ? '#f9f9f9' : '#fff'),
+                      cursor: 'pointer'
+                    }}
+                  >
                     <td>{stats.name || 'N/A'}</td>
                     <td>{stats.email || 'N/A'}</td>
                     <td style={{ textAlign: 'center' }}>{stats.quizzes}</td>
                     <td>
                       <button
                         style={{
-                          background: '#1e3a8a', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 16px', cursor: 'pointer', fontWeight: 600
+                          background: '#1e3a8a', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 16px', cursor: 'pointer', fontWeight: 600, fontSize: 14
                         }}
                         onClick={() => handleUserClick(userId)}
                       >
@@ -193,12 +205,12 @@ const AdminAnalytics = () => {
             background: '#fff',
             borderRadius: 12,
             boxShadow: '0 2px 8px #eee',
-            padding: 24,
+            padding: 32,
             minWidth: 400,
             margin: 0,
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'flex-start', // <-- align content to the left of the panel
+            alignItems: 'center',
             justifyContent: 'flex-start',
           }}
         >
@@ -206,7 +218,7 @@ const AdminAnalytics = () => {
             <>
               <h3 style={{ textAlign: 'center', marginBottom: 20 }}>{selectedUser.name}'s Subject-wise Performance</h3>
               <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <ResponsiveContainer width={500} height={350}>
+                <ResponsiveContainer width={350} height={250}>
                   <PieChart>
                     <Pie
                       data={getSubjectPieData(selectedUser)}
@@ -214,7 +226,7 @@ const AdminAnalytics = () => {
                       nameKey="name"
                       cx="50%"
                       cy="45%"
-                      outerRadius={120}
+                      outerRadius={90}
                       labelLine={false}
                       label={({ percent }) => `${percent}%`}
                     >
@@ -251,6 +263,7 @@ const AdminAnalytics = () => {
             </div>
           )}
         </div>
+        <hr style={{ width: '100%', margin: '32px 0', border: 'none', borderTop: '1px solid #eee' }} />
       </div>
     </div>
   );
