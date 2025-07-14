@@ -115,18 +115,41 @@ const AdminAnalytics = () => {
       <Sidebar />
       <div className="dashboard-main-content">
         <h2 style={{ textAlign: 'center', marginBottom: 30 }}>User Quiz Analytics</h2>
-        <div style={{ maxWidth: 600, margin: '0 auto' }}>
+        <div style={{ maxWidth: 800, margin: '0 auto' }}>
           <h3>Users who participated:</h3>
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {usersWithQuizzes.length === 0 && <li>No users have participated in quizzes yet.</li>}
-            {usersWithQuizzes.map(([userId, stats]) => (
-              <li key={userId} style={{ marginBottom: 12 }}>
-                <span style={{ color: '#1e3a8a', cursor: 'pointer', textDecoration: 'underline', fontWeight: 600 }} onClick={() => handleUserClick(userId)}>
-                  {stats.name} ({stats.email})
-                </span>
-              </li>
-            ))}
-          </ul>
+          {usersWithQuizzes.length === 0 ? (
+            <p style={{ textAlign: 'center', marginTop: 20 }}>No users have participated in quizzes yet.</p>
+          ) : (
+            <table className="dashboard-table" style={{ marginTop: 10, background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #eee' }}>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Quizzes Taken</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {usersWithQuizzes.map(([userId, stats], idx) => (
+                  <tr key={userId} style={{ background: idx % 2 === 0 ? '#f9f9f9' : '#fff' }}>
+                    <td>{stats.name || 'N/A'}</td>
+                    <td>{stats.email || 'N/A'}</td>
+                    <td style={{ textAlign: 'center' }}>{stats.quizzes}</td>
+                    <td>
+                      <button
+                        style={{
+                          background: '#1e3a8a', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 16px', cursor: 'pointer', fontWeight: 600
+                        }}
+                        onClick={() => handleUserClick(userId)}
+                      >
+                        View Analytics
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
 
         <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
